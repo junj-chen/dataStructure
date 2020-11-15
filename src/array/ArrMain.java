@@ -73,7 +73,7 @@ public class ArrMain<E> {
             throw new IllegalArgumentException("下标出错");
 
         data[index] = e;
-        
+
     }
 
     //
@@ -93,8 +93,8 @@ public class ArrMain<E> {
             throw new IllegalArgumentException("下标出错");
 
         E old = data[index];
-        for (int i = index; i < size; i++){
-            data[i] = data[i + 1];
+        for (int i = index + 1; i < size; i++){
+            data[i - 1] = data[i];
         }
 
         size--;
