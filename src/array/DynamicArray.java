@@ -22,6 +22,11 @@ public class DynamicArray<E> {
     }
 
 
+    // 判断是否为空
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
     public int getSize(){
         return size;
     }
@@ -31,11 +36,7 @@ public class DynamicArray<E> {
     }
 
     public void addLast(E e){
-        if (size == data.length)
-            throw new IllegalArgumentException("数组已满");
-
-        data[size] = e;
-        size++;
+        add(size, e);
     }
 
     // 第一个位置插入元素
@@ -48,7 +49,7 @@ public class DynamicArray<E> {
     public void add(int index, E e){
 
 
-        if (index < 0 || index > data.length)
+        if (index < 0 || index > size)
             throw new IllegalArgumentException("下标越界");
 
         // 数组不够， 开始扩容，动态数组实现
@@ -71,6 +72,17 @@ public class DynamicArray<E> {
 
         return data[index];
     }
+
+    // 获取最后一个元素
+    public E getLast(){
+        // 通过使用 get 方法，有效避免下标出错
+        return get(size - 1);
+    }
+    // 获取第一个元素
+    public E getFirst(){
+        return get(0);
+    }
+
 
     public void set(int index, E e){
         if (index <0 || index >= size)

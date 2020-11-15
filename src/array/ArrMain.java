@@ -48,7 +48,7 @@ public class ArrMain<E> {
         if (size == data.length)
             throw new IllegalArgumentException("数组已满");
 
-        if (index < 0 || index > data.length)
+        if (index < 0 || index > size)
             throw new IllegalArgumentException("下标越界");
 
         int i = 0;

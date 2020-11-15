@@ -35,11 +35,7 @@ public class Array<E> {
     }
 
     public void addLast(E e){
-        if (size == data.length)
-            throw new IllegalArgumentException("数组已满");
-
-        data[size] = e;
-        size++;
+        add(size, e);
     }
 
     // 第一个位置插入元素
@@ -52,7 +48,7 @@ public class Array<E> {
     public void add(int index, E e){
 
 
-        if (index < 0 || index > data.length)
+        if (index < 0 || index > size)
             throw new IllegalArgumentException("下标越界");
 
         // 数组不够， 开始扩容，动态数组实现
