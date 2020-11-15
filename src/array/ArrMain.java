@@ -2,14 +2,15 @@ package array;
 
 import java.util.Arrays;
 
-public class ArrMain {
+public class ArrMain<E> {
 
-    private int[] data;
+    private E[] data;
 
     private  int size;
 
     public ArrMain(int capacity){
-        data = new int[capacity];
+        // 泛型 -> 先使用object类型，然后强制类型转换
+        data = (E[])new Object[capacity];
         size = 0;
     }
 
@@ -27,7 +28,7 @@ public class ArrMain {
         return data.length;
     }
 
-    public void addLast(int e){
+    public void addLast(E e){
         if (size == data.length)
             throw new IllegalArgumentException("数组已满");
 
@@ -36,13 +37,13 @@ public class ArrMain {
     }
 
     // 第一个位置插入元素
-    public void addFirst(int e){
+    public void addFirst(E e){
         add(0, e);
     }
 
 
     // 在某一个位置插入元素,
-    public void add(int index, int e){
+    public void add(int index, E e){
 
         if (size == data.length)
             throw new IllegalArgumentException("数组已满");
@@ -60,64 +61,69 @@ public class ArrMain {
         size++;
     }
 
-    public int get(int index){
+    public E get(int index){
         if (index <0 || index >= size)
             throw new IllegalArgumentException("下标出错");
 
         return data[index];
     }
 
-    public void set(int index, int e){
+    public void set(int index, E e){
         if (index <0 || index >= size)
             throw new IllegalArgumentException("下标出错");
 
         data[index] = e;
+        
     }
 
     //
-    public boolean contains(int e){
+    public boolean contains(E e){
 
         for (int i = 0; i < size; i++) {
-            if (data[i] == e)
+            // 值 比较
+            if (data[i].equals(e))
                 return true;
         }
         return false;
     }
 
-    public int remove(int index){
-        int old = 0;
+    public E remove(int index){
+
         if (index < 0 || index >= size)
             throw new IllegalArgumentException("下标出错");
 
-        old = data[index];
+        E old = data[index];
         for (int i = index; i < size; i++){
             data[i] = data[i + 1];
         }
+
         size--;
+        // 指向一个引用，可以进行手动释放
+        data[size] = null;  // GC 自动回收
 
         return old;
 
     }
 
     // 返回索引值
-    public int find(int e){
+    public int find(E e){
         for (int i = 0; i < size; i++) {
-            if (data[i] == e)
+            if (data[i].equals(e))
                 return i;
         }
         return -1;
     }
 
-    public int removeFirst(){
+    public E removeFirst(){
         return remove(0);
     }
 
-    public int removeLast(){
+    public E removeLast(){
         return remove(size - 1);
     }
 
     // 数组中删除一个元素
-    public void removeElement(int e){
+    public void removeElement(E e){
 
         int index = find(e);
         if (index != -1)
@@ -143,7 +149,7 @@ public class ArrMain {
 
     public static void main(String[] args) {
 
-        ArrMain arrMain = new ArrMain(20);
+        ArrMain<Integer> arrMain = new ArrMain(20);
 
         ArrMain ee = new ArrMain(20);
 
