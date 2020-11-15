@@ -107,7 +107,13 @@ public class DynamicArray<E> {
         data[size] = null;  // GC 自动回收
 
         // 如果数组容量太大，进行容量的减少
-        if (size == data.length / 2)
+        /**
+         * 该代码会出现复杂度的震荡，使用 lazy 机制，当size == length / 4时候，才进行容量的裁剪
+         */
+//        if (size == data.length / 2)
+//            resize(data.length / 2);
+
+        if (size == data.length / 4 && data.length / 2 != 0)
             resize(data.length / 2);
 
         return old;
