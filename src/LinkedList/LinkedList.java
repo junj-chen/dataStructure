@@ -1,5 +1,6 @@
 package LinkedList;
 
+
 public class LinkedList<E> {
 
     // 创建节点
@@ -69,8 +70,102 @@ public class LinkedList<E> {
         add(size, e);
     }
 
+    // 获取元素
+    public E get(int index){
+        if (index < 0 || index >= size)
+            throw new IllegalArgumentException("下标出错");
+        Node cur = dummyHead.next;
+
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        return cur.e;
+    }
+
+    public E getFirst(){
+        return get(0);
+    }
+
+    public E getLast(){
+        return get(size -1);
+    }
+
+    //设置值
+    public void set(int index, E e){
+        if (index < 0 || index >= size)
+            throw new IllegalArgumentException("下标出错");
+        Node cur = dummyHead.next;
+
+        for (int i = 0; i < index; i++)
+            cur = cur.next;
+        cur.e = e;
+    }
+
+    // 查找某个元素值
+    public boolean contains(E e){
+        Node cur = dummyHead.next;
+
+        while (cur != null){
+            if (cur.e.equals(e))
+                return true;
+            cur = cur.next;
+        }
+        return false;
+    }
+
+    // 从链表中删除元素
+    public E remove(int index){
+        if (index < 0 || index >= size)
+            throw new IllegalArgumentException("下标出错");
+
+        Node pre = dummyHead;
+        for (int i = 0; i < index; i++){
+            pre = pre.next;   //查找到待删除元素的前一个元素
+        }
+        Node ret = pre.next;  //需要删除的元素
+        pre.next = ret.next;
+        ret.next = null;
+
+        return ret.e;
+    }
+
+    public E removeFirst(){
+        return remove(0);
+    }
+
+    public E removeLast(){
+        return remove(size - 1);
+    }
 
 
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        Node cur = dummyHead.next;
+        while (cur != null){
+            res.append(cur.e + "->");
+            cur = cur.next;
+        }
+        res.append("null");
+        return res.toString();
+    }
+
+    public static void main(String[] args) {
+        LinkedList<Integer> linkedList = new LinkedList<Integer>();
+        for (int i = 0; i < 5; i++) {
+            linkedList.addFirst(i);
+            System.out.println(linkedList);
+        }
+
+        linkedList.add(2, 520);
+        System.out.println(linkedList);
+
+        linkedList.removeFirst();
+        System.out.println(linkedList);
+
+        linkedList.remove(1);
+        System.out.println(linkedList);
+    }
 
 
 }
